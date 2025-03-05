@@ -1,0 +1,80 @@
+.settings-main {
+    background-color: #fff; /* White background */
+    padding: 40px;
+    width: 400px; /* Match form width from Links/Appearance */
+    margin-left: 140px; /* Offset for nav width + margin */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+  }
+  
+  .settings-form-content {
+    background-color: #f5f5f5;
+    padding: 20px;
+    border-radius: 10px;
+  }
+  
+  .settings-form-content h2 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 20px;
+    font-size: 1.5rem;
+  }
+  
+  .form-group {
+    margin-bottom: 15px;
+  }
+  
+  .form-group label {
+    display: block;
+    margin-bottom: 5px;
+    color: #333;
+  }
+  
+  .form-group input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 20px;
+    font-size: 1rem;
+  }
+  
+  .save-button {
+    width: 100%;
+    padding: 12px;
+    background-color: #4CAF50; /* Green as in Figma */
+    color: white;
+    border: none;
+    border-radius: 20px;
+    font-size: 1rem;
+    cursor: pointer;
+    margin-top: 20px;
+  }
+  
+  .save-button:hover {
+    background-color: #45a049;
+  }
+  
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .settings-main {
+      width: 300px;
+      padding: 20px;
+      margin-left: 0;
+      border-radius: 10px;
+    }
+  
+    .settings-form-content h2 {
+      font-size: 1.2rem;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .settings-main {
+      width: 100%;
+      max-width: 250px;
+    }
+  
+    .settings-form-content h2 {
+      font-size: 1rem;
+    }
+  }

@@ -1,0 +1,300 @@
+.landing-page {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  font-family: Arial, sans-serif;
+}
+
+/* Navigation */
+.nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 0;
+}
+
+.nav h1 {
+  font-size: 1.8rem;
+  color: #333;
+  margin: 0;
+}
+
+.signup-link {
+  font-size: 1rem;
+  color: #007bff;
+  text-decoration: none;
+  padding: 8px 16px;
+  border: 1px solid #007bff;
+  border-radius: 5px;
+}
+
+.signup-link:hover {
+  background-color: #007bff;
+  color: white;
+}
+
+/* Main Sections */
+main {
+  margin-top: 20px;
+}
+
+.hero-section, .analyze-section, .share-section, .testimonials-section, .integrations-section {
+  margin-bottom: 40px;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+}
+
+h2, h3 {
+  color: #333;
+  text-align: center;
+}
+
+/* Hero Section */
+.hero-section h2 {
+  font-size: 2rem;
+  margin-bottom: 20px;
+}
+
+.hero-images {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+.hero-image {
+  width: 600px; /* Default doubled size for all hero images */
+  height: auto;
+  border-radius: 5px;
+}
+
+/* Specific size for image1 (hero-image) - keep original size */
+.hero-image.image1 {
+  width: 300px; /* Revert to original size */
+}
+
+/* Analyze Section */
+.analyze-section h3 {
+  font-size: 1.5rem;
+  margin-bottom: 20px;
+}
+
+.section-image {
+  width: 100%;
+  max-width: 1200px; /* Doubled from 600px */
+  height: auto;
+  border-radius: 5px;
+  margin: 0 auto;
+  display: block;
+}
+
+/* Share Section */
+.share-section h3 {
+  font-size: 1.5rem;
+  margin-bottom: 20px;
+}
+
+.share-images {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 15px;
+}
+
+.share-image {
+  width: 100%;
+  height: auto;
+  border-radius: 5px;
+}
+
+/* Testimonials Section */
+.testimonials-section h3 {
+  font-size: 1.5rem;
+  margin-bottom: 20px;
+}
+
+.testimonials {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
+}
+
+.testimonial {
+  background-color: #fff;
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  border: 1px solid #e0e0e0;
+}
+
+.avatar {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+.testimonial p {
+  margin: 0;
+  color: #666;
+  font-style: italic;
+}
+
+/* Integrations Section */
+.integrations-section h3 {
+  font-size: 1.5rem;
+  margin-bottom: 20px;
+}
+
+.integrations {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+  gap: 15px;
+  justify-content: center;
+}
+
+.integration-icon {
+  width: 200px; /* Default doubled size for all integration icons */
+  height: auto;
+  border-radius: 5px;
+}
+
+/* Specific size for image7 (integration-icon) - keep original size */
+.integration-icon.image7 {
+  width: 100px; /* Revert to original size */
+}
+
+/* Footer */
+footer {
+  background-color: #333;
+  color: white;
+  padding: 20px 0;
+  margin-top: 40px;
+}
+
+.footer-links {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.footer-links a {
+  color: white;
+  text-decoration: none;
+  margin: 0 10px;
+  font-size: 1rem;
+}
+
+.social-icons {
+  display: flex;
+  gap: 10px;
+}
+
+.social-icon {
+  width: 30px;
+  height: auto;
+  border-radius: 5px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .nav {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .nav h1 {
+    margin-bottom: 10px;
+  }
+
+  .hero-images, .share-images, .testimonials, .integrations {
+    grid-template-columns: 1fr;
+  }
+
+  .hero-image {
+    width: 100%;
+    max-width: 600px;
+  }
+
+  /* Keep image1 smaller on tablets */
+  .hero-image.image1 {
+    max-width: 300px; /* Revert to original size on tablets */
+  }
+
+  .section-image {
+    max-width: 600px;
+  }
+
+  .share-image {
+    width: 100%;
+  }
+
+  .integration-icon {
+    width: 150px;
+  }
+
+  /* Keep image7 smaller on tablets */
+  .integration-icon.image7 {
+    width: 100px; /* Revert to original size on tablets */
+  }
+
+  h2 {
+    font-size: 1.5rem;
+  }
+
+  h3 {
+    font-size: 1.2rem;
+  }
+
+  .footer-links {
+    flex-direction: column;
+    text-align: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .landing-page {
+    padding: 10px;
+  }
+
+  .nav h1 {
+    font-size: 1.5rem;
+  }
+
+  .signup-link {
+    padding: 6px 12px;
+    font-size: 0.9rem;
+  }
+
+  .hero-image {
+    width: 100%;
+    max-width: 300px;
+  }
+
+  /* Keep image1 at original size on mobile */
+  .hero-image.image1 {
+    max-width: 300px; /* Already original size, no change needed */
+  }
+
+  .section-image {
+    max-width: 300px;
+  }
+
+  .share-image {
+    width: 100%;
+  }
+
+  .integration-icon {
+    width: 100px;
+  }
+
+  /* Keep image7 at original size on mobile */
+  .integration-icon.image7 {
+    width: 100px; /* Already original size, no change needed */
+  }
+
+  .hero-section, .analyze-section, .share-section, .testimonials-section, .integrations-section {
+    padding: 10px;
+  }
+}

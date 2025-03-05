@@ -1,0 +1,250 @@
+.appearance-main {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    background-color: #fff; /* White background */
+    padding: 40px;
+    width: 800px; /* Increased width to accommodate both form and preview side by side */
+    margin-left: 140px; /* Offset for nav width + margin */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .appearance-form-content {
+    width: 400px; /* Half of the total width for the form */
+  }
+  
+  .appearance-form-content h2 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 20px;
+    font-size: 1.5rem;
+  }
+  
+  .option-section {
+    margin-bottom: 20px;
+  }
+  
+  .option-section h3 {
+    margin-bottom: 10px;
+    color: #333;
+  }
+  
+  .layout-options, .button-options {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+  
+  .layout-options label, .button-options label {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    cursor: pointer;
+    color: #333;
+  }
+  
+  .layout-icon, .button-icon {
+    font-size: 1.2rem;
+    margin-right: 5px;
+  }
+  
+  .option-section input[type="radio"] {
+    margin-right: 5px;
+  }
+  
+  .option-section select {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1rem;
+  }
+  
+  .save-button {
+    width: 100%;
+    padding: 12px;
+    background-color: #0066cc;
+    color: white;
+    border: none;
+    border-radius: 25px;
+    font-size: 1rem;
+    cursor: pointer;
+    margin-top: 20px;
+  }
+  
+  .save-button:hover {
+    background-color: #0052a3;
+  }
+  
+  .preview-mobile {
+    width: 300px; /* Fixed width for the preview */
+  }
+  
+  .mobile-screen {
+    border-radius: 20px;
+    width: 100%;
+    height: 600px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .air-snow { background-color: #f0f8ff; }
+  .air-grey { background-color: #d3d3d3; }
+  .air-smoke { background-color: #666666; }
+  .air-black { background-color: #000000; }
+  .mineral-blue { background-color: #add8e6; }
+  .mineral-green { background-color: #90ee90; }
+  .mineral-orange { background-color: #ffa500; }
+  
+  .mobile-header {
+    padding: 10px;
+    background-color: #333;
+    color: white;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  
+  .mobile-header button {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 1rem;
+    cursor: pointer;
+  }
+  
+  .mobile-profile {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+  
+  .mobile-links {
+    flex-grow: 1;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .mobile-links.stack {
+    flex-direction: column; /* Default stack layout */
+  }
+  
+  .mobile-links.grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+  }
+  
+  .mobile-links.carousel {
+    overflow-x: auto;
+    white-space: nowrap;
+    padding-bottom: 10px;
+  }
+  
+  .mobile-links.carousel button, .mobile-links.carousel .mobile-link-item, .mobile-links.carousel .mobile-bio, .mobile-links.carousel .mobile-connect {
+    display: inline-block;
+    margin-right: 10px;
+    vertical-align: middle;
+  }
+  
+  .mobile-link, .mobile-shop, .mobile-link-item, .mobile-connect {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    margin-bottom: 10px;
+    font-size: 0.9rem;
+  }
+  
+  .fill {
+    background-color: #0066cc;
+    color: white;
+  }
+  
+  .fill:hover {
+    background-color: #0052a3;
+  }
+  
+  .outline {
+    background: none;
+    border: 2px solid #0066cc;
+    color: #0066cc;
+  }
+  
+  .outline:hover {
+    background-color: #e6f0ff;
+  }
+  
+  .hard-shadow {
+    background-color: #0066cc;
+    color: white;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  .hard-shadow:hover {
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2);
+  }
+  
+  .soft-shadow {
+    background-color: #0066cc;
+    color: white;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .soft-shadow:hover {
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+  }
+  
+  .mobile-bio {
+    padding: 8px;
+    background-color: #f5f5f5;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    color: #333;
+    display: inline-block; /* Ensure it works in Carousel */
+  }
+  
+  .mobile-footer {
+    text-align: center;
+    padding: 10px;
+    font-size: 0.8rem;
+  }
+  
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .appearance-main {
+      flex-direction: column;
+      width: 300px;
+      padding: 20px;
+      margin-left: 0;
+      border-radius: 10px;
+    }
+  
+    .appearance-form-content, .preview-mobile {
+      width: 100%;
+    }
+  
+    .appearance-form-content h2 {
+      font-size: 1.2rem;
+    }
+  
+    .preview-mobile {
+      margin-top: 20px;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .appearance-main {
+      width: 100%;
+      max-width: 250px;
+    }
+  
+    .appearance-form-content h2 {
+      font-size: 1rem;
+    }
+  }

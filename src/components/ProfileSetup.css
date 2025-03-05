@@ -1,0 +1,172 @@
+.profile-setup-page {
+    background-color: #000; /* Black background */
+    min-height: 100vh;
+    padding: 20px;
+  }
+  
+  .profile-setup-content {
+    display: flex;
+    justify-content: space-between; /* Form on left, image on right */
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+    height: 100%;
+  }
+  
+  .profile-setup-form {
+    background-color: rgba(255, 255, 255, 0.9);
+    padding: 40px;
+    border-radius: 10px;
+    width: 400px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    z-index: 1; /* Ensure form stays above image */
+  }
+  
+  .logo {
+    font-size: 1.5rem;
+    color: #0066cc;
+    text-align: left;
+    margin-bottom: 20px;
+  }
+  
+  .profile-setup-form h2 {
+    text-align: center;
+    color: #000;
+    margin-bottom: 10px;
+    font-size: 2rem;
+    font-weight: bold;
+  }
+  
+  .profile-setup-form p {
+    text-align: center;
+    color: #666;
+    margin-bottom: 20px;
+  }
+  
+  .form-group {
+    margin-bottom: 20px;
+  }
+  
+  .profile-setup-form input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1rem;
+  }
+  
+  .category-options {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* Two columns for categories */
+    gap: 10px;
+  }
+  
+  .category-option {
+    display: flex;
+    align-items: center;
+    padding: 8px;
+    background-color: #f5f5f5;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .category-option input[type="radio"] {
+    margin-right: 8px;
+  }
+  
+  .category-icon {
+    margin-right: 8px;
+    font-size: 1.2rem;
+  }
+  
+  .category-option:hover {
+    background-color: #e0e0e0;
+  }
+  
+  .profile-setup-form button {
+    width: 100%;
+    padding: 12px;
+    background-color: #0066cc;
+    color: white;
+    border: none;
+    border-radius: 25px;
+    font-size: 1rem;
+    cursor: pointer;
+    margin-top: 20px;
+  }
+  
+  .profile-setup-form button:hover {
+    background-color: #0052a3;
+  }
+  
+  .error {
+    color: red;
+    font-size: 0.8rem;
+    margin-top: 5px;
+    margin-bottom: 0;
+  }
+  
+  .profile-setup-image {
+    background-image: url('../images/frame2.jpg');
+    background-size: cover;
+    background-position: center;
+    width: 50%; /* Half the screen width for desktop */
+    height: 100vh;
+    position: absolute;
+    right: 0;
+    top: 0;
+  }
+  
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .profile-setup-content {
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+  
+    .profile-setup-form {
+      width: 300px;
+      padding: 20px;
+      margin-bottom: 20px;
+    }
+  
+    .profile-setup-form input, .profile-setup-form button {
+      font-size: 0.9rem;
+    }
+  
+    .profile-setup-form h2 {
+      font-size: 1.5rem;
+    }
+  
+    .category-options {
+      grid-template-columns: 1fr; /* Single column on tablets */
+    }
+  
+    .profile-setup-image {
+      width: 100%;
+      height: 300px; /* Reduced height on tablets */
+      position: relative;
+      margin-top: 20px;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .profile-setup-page {
+      padding: 10px;
+    }
+  
+    .profile-setup-form {
+      width: 100%;
+      max-width: 250px;
+    }
+  
+    .profile-setup-form h2 {
+      font-size: 1.2rem;
+    }
+  
+    .profile-setup-image {
+      height: 200px; /* Further reduced height on mobile */
+    }
+  }
