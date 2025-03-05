@@ -1,8 +1,8 @@
 import './Dashboard.css';
 import { Routes, Route, Link, Outlet, useLocation } from 'react-router-dom';
-import Links from './Links';
-import Appearance from './Appearance';
-import Settings from './Settings';
+import Links from './Links.js';
+import Appearance from './Appearance.js';
+import Settings from './Settings.js';
 
 function Dashboard() {
   const location = useLocation();
