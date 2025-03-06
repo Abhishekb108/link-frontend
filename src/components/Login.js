@@ -1,17 +1,17 @@
-import './Login.css';
-import frame from '../images/frame.jpg';
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import "./Login.css";
+import frame from "../images/frame.jpg";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 function Login() {
   const [formData, setFormData] = useState({
-    username: '',
-    password: '',
+    email: "",
+    password: "",
   });
 
   const [errors, setErrors] = useState({
-    username: '',
-    password: '',
+    email: "",
+    password: "",
   });
 
   const navigate = useNavigate();
@@ -26,11 +26,11 @@ function Login() {
     let newErrors = { ...errors };
 
     switch (name) {
-      case 'username':
-        newErrors.username = value.trim() ? '' : 'Username required*';
+      case "email":
+        newErrors.email = value.trim() ? "" : "email required*";
         break;
-      case 'password':
-        newErrors.password = value.trim() ? '' : 'Password required*';
+      case "password":
+        newErrors.password = value.trim() ? "" : "Password required*";
         break;
       default:
         break;
@@ -41,13 +41,35 @@ function Login() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const allFieldsFilled = Object.values(formData).every((field) => field.trim() !== '');
-    const noErrors = Object.values(errors).every((error) => error === '');
+    const allFieldsFilled = Object.values(formData).every(
+      (field) => field.trim() !== ""
+    );
+    const noErrors = Object.values(errors).every((error) => error === "");
 
     if (allFieldsFilled && noErrors) {
       // Simulate login and check if profile is set up (simplified logic)
-      alert('Login successful! Setting up your profile.');
-      navigate('/profile-setup'); // Navigate to profile setup after login
+
+      //post request
+      fetch("http://localhost:5000/api/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          console.log("Success:", data);
+          alert("Login successful! Setting up your profile.");
+          
+          //save data.token in localstorage
+          localStorage.setItem("token", data.token);
+          navigate('/profile-setup');
+        })
+        .catch((error) => {
+          console.error("Error:", error);
+        });
+
     } else {
       Object.keys(formData).forEach((key) => validateField(key, formData[key]));
     }
@@ -62,12 +84,12 @@ function Login() {
             <div className="form-group">
               <input
                 type="text"
-                name="username"
-                placeholder="Spark/Username"
-                value={formData.username}
+                name="email"
+                placeholder="Spark/email"
+                value={formData.email}
                 onChange={handleChange}
               />
-              {errors.username && <p className="error">{errors.username}</p>}
+              {errors.email && <p className="error">{errors.email}</p>}
             </div>
             <div className="form-group">
               <input
@@ -81,11 +103,21 @@ function Login() {
             </div>
             <button type="submit">Login</button>
           </form>
-          <a href="/forgot-password" className="forgot-password">Forgot password?</a>
-          <a href="/signup" className="signup-link">Sign up</a>
-          <p className="captcha">This site is protected by reCAPTCHA and the Google Privacy Policy and Terms of Service apply.</p>
+          <a href="/forgot-password" className="forgot-password">
+            Forgot password?
+          </a>
+          <a href="/signup" className="signup-link">
+            Sign up
+          </a>
+          <p className="captcha">
+            This site is protected by reCAPTCHA and the Google Privacy Policy
+            and Terms of Service apply.
+          </p>
         </div>
-        <div className="login-image" style={{ backgroundImage: `url(${frame})` }}></div>
+        <div
+          className="login-image"
+          style={{ backgroundImage: `url(${frame})` }}
+        ></div>
       </div>
     </div>
   );
