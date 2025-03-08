@@ -35,6 +35,15 @@ function Settings() {
     setConfirmPassword(e.target.value);
   };
 
+  let userInfomation = JSON.parse(localStorage.getItem('userInformation'));
+  let token = localStorage.getItem('token');
+
+  useEffect(() => {
+    setFirstName(userInfomation.firstName);
+    setLastName(userInfomation.lastName);
+    setEmail(userInfomation.email);
+  },[userInfomation]);
+
   const handleSave = () => {
     if (password !== confirmPassword) {
       alert('Passwords do not match!');

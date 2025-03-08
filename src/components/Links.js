@@ -23,6 +23,9 @@ function Links() {
 
   const navigate = useNavigate();
 
+  let userInfomation = JSON.parse(localStorage.getItem('userInformation'));
+  let token = localStorage.getItem('token');
+
   useEffect(() => {
     // Ensure username and user data are updated if state changes
   }, [state]);
@@ -97,9 +100,74 @@ function Links() {
   };
 
   const handleSave = () => {
-    alert('Profile saved successfully!');
+
+    if(bio.length > 0 || profilePhoto != null){
+
+      const payload = { 
+        firstName:  userInfomation.firstName,
+        lastName: userInfomation.lastName, 
+        bio:  bio, 
+        profilePhoto: "https://www.freepik.com/free-photos-vectors/user-profile", 
+        username: userInfomation.username, 
+        category:userInfomation.category 
+      };
+
+      updateProfile(payload);
+    }
+
+    if(links.length > 0 && links !== null && links !== undefined){
+      updateLinks(links);
+    }
+
+
+
+    //alert('Profile saved successfully!');
     // Here, you would typically send data to a backend (e.g., Node.js/Express with MongoDB)
   };
+
+
+  const updateProfile = (payload) => {
+    //put api
+    fetch("http://localhost:5000/api/profile/basic", {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": token
+      },
+      body: JSON.stringify(payload),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log("Success:", data);
+        alert("Profile updated successfully!");
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
+  };
+
+  const updateLinks = (payload) => {
+    console.log("links payload", payload);
+    //put api
+    fetch("http://localhost:5000/api/profile/links", {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": token
+      },
+      body: JSON.stringify(payload),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log("Success:", data);
+        alert("Links updated successfully!");
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
+  };
+
+
 
   const getBannerBackgroundColor = () => {
     return isBannerEnabled ? bannerColor : '#000000'; // Use selected color if enabled, default to black if disabled

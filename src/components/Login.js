@@ -64,7 +64,8 @@ function Login() {
           
           //save data.token in localstorage
           localStorage.setItem("token", data.token);
-          navigate('/profile-setup');
+          localStorage.setItem("userInformation", JSON.stringify(data.user));
+          navigate('/dashboard/links');
         })
         .catch((error) => {
           console.error("Error:", error);
