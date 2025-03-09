@@ -23,6 +23,7 @@ function Links() {
 
   const navigate = useNavigate();
 
+  // let userInfomation = JSON.parse(localStorage.getItem('userInformation'));
   let userInfomation = JSON.parse(localStorage.getItem('userInformation'));
   let token = localStorage.getItem('token');
 
@@ -116,7 +117,43 @@ function Links() {
     }
 
     if(links.length > 0 && links !== null && links !== undefined){
-      updateLinks(links);
+
+
+    
+      const payload = links.map((link) => {
+        return {
+          title: link.title,
+          url: link.url,
+          enabled: link.enabled,
+          clickCount: links.length,
+          lastClicked: new Date().toLocaleDateString()
+        };
+      });
+      const result ={
+        links:payload
+      }
+    
+      updateLinks(result);
+    }
+
+    if(shops.length > 0 && shops !== null && shops !== undefined){
+
+
+    
+      const payload = shops.map((link) => {
+        return {
+          title: link.title,
+          url: link.url,
+          enabled: link.enabled,
+          clickCount: shops.length,
+          lastClicked: new Date().toLocaleDateString()
+        };
+      });
+      const result ={
+        shops:payload
+      }
+    
+      updateShops(result);
     }
 
 
@@ -161,6 +198,26 @@ function Links() {
       .then((data) => {
         console.log("Success:", data);
         alert("Links updated successfully!");
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
+  };
+  const updateShops = (payload) => {
+    console.log("shops payload", payload);
+    //put api
+    fetch("http://localhost:5000/api/profile/shops", {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": token
+      },
+      body: JSON.stringify(payload),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log("Success:", data);
+        alert("shops updated successfully!");
       })
       .catch((error) => {
         console.error("Error:", error);
