@@ -14,6 +14,7 @@ function Settings() {
   const [email, setEmail] = useState(initialEmail);
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+  const [fetchData  , setFetchData] = useState('')
 
   const handleFirstNameChange = (e) => {
     setFirstName(e.target.value);
@@ -38,11 +39,38 @@ function Settings() {
   let userInfomation = JSON.parse(localStorage.getItem('userInformation'));
   let token = localStorage.getItem('token');
 
+
+
+  useEffect(()=>{
+    const fetchData = async () => {
+      const response = await fetch('http://localhost:5000/api/me',{
+   method: 'GET',
+   headers: {
+     'Content-Type': 'application/json',
+     'Authorization': token
+   }
+      }
+        
+  
+      );
+      const data = await response.json();
+      setFetchData(data);
+      
+    };
+    fetchData();
+  
+  },[])
+
   useEffect(() => {
-    setFirstName(userInfomation.firstName);
-    setLastName(userInfomation.lastName);
-    setEmail(userInfomation.email);
-  },[userInfomation]);
+    setFirstName(fetchData.firstName);
+    setLastName(fetchData.lastName);
+    setEmail(fetchData.email);
+  },[fetchData]);
+
+
+
+
+
 
   const handleSave = () => {
     if (password !== confirmPassword) {

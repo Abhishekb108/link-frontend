@@ -1,14 +1,11 @@
 import './Links.css';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, use } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 function Links() {
   const location = useLocation();
   const { state } = location;
-  const initialUsername = state?.username || 'Jenny Wilson'; // Default username from Profile Setup
-  const initialFirstName = state?.firstName || 'Jenny'; // Default first name
-  const initialLastName = state?.lastName || 'Wilson'; // Default last name
-  const initialEmail = state?.email || 'JennyWilson08@gmail.com'; // Default email
+ 
 
   const [profilePhoto, setProfilePhoto] = useState(null);
   const [bio, setBio] = useState('');
@@ -20,12 +17,19 @@ function Links() {
   const [showShopForm, setShowShopForm] = useState(false);
   const [newLink, setNewLink] = useState({ title: '', url: '', enabled: false });
   const [newShop, setNewShop] = useState({ title: '', url: '', enabled: false });
+  const [fetchData, setFetchData] = useState(''); 
+  const initialUsername = fetchData?.username ; // Default username from Profile Setup
+  // const initialFirstName = fetchData?.firstName ; // Default first name
+  // const initialLastName = fetchData?.lastName ; // Default last name
+  // const initialEmail = fetchData?.email ; // Default email
 
   const navigate = useNavigate();
 
   // let userInfomation = JSON.parse(localStorage.getItem('userInformation'));
   let userInfomation = JSON.parse(localStorage.getItem('userInformation'));
   let token = localStorage.getItem('token');
+
+
 
   useEffect(() => {
     // Ensure username and user data are updated if state changes
@@ -108,12 +112,13 @@ function Links() {
         firstName:  userInfomation.firstName,
         lastName: userInfomation.lastName, 
         bio:  bio, 
-        profilePhoto: "https://www.freepik.com/free-photos-vectors/user-profile", 
+        profilePhoto: "https://cdn.vectorstock.com/i/1000v/30/97/flat-business-man-user-profile-avatar-icon-vector-4333097.jpg", 
         username: userInfomation.username, 
         category:userInfomation.category 
       };
 
       updateProfile(payload);
+
     }
 
     if(links.length > 0 && links !== null && links !== undefined){
@@ -177,6 +182,7 @@ function Links() {
       .then((data) => {
         console.log("Success:", data);
         alert("Profile updated successfully!");
+        fetchData();
       })
       .catch((error) => {
         console.error("Error:", error);
@@ -198,6 +204,7 @@ function Links() {
       .then((data) => {
         console.log("Success:", data);
         alert("Links updated successfully!");
+        fetchData();
       })
       .catch((error) => {
         console.error("Error:", error);
@@ -218,6 +225,7 @@ function Links() {
       .then((data) => {
         console.log("Success:", data);
         alert("shops updated successfully!");
+        fetchData();
       })
       .catch((error) => {
         console.error("Error:", error);
@@ -229,6 +237,41 @@ function Links() {
   const getBannerBackgroundColor = () => {
     return isBannerEnabled ? bannerColor : '#000000'; // Use selected color if enabled, default to black if disabled
   };
+
+  useEffect(()=>{
+    const fetchData = async () => {
+      const response = await fetch('http://localhost:5000/api/me',{
+   method: 'GET',
+   headers: {
+     'Content-Type': 'application/json',
+     'Authorization': token
+   }
+      }
+        
+  
+      );
+      const data = await response.json();
+      setFetchData(data);
+      
+    };
+    fetchData();
+  
+  },[])
+
+  console.log(fetchData, 'fetchdata')
+
+
+  useEffect(()=>{
+  setProfilePhoto(fetchData.profilePhoto);
+  setBio(fetchData.bio);
+  setLinks(fetchData.links || []);
+  setShops(fetchData.shops || []);
+  setBannerColor(fetchData.bannerColor);
+  },
+  [fetchData])
+
+   console.log(links,'links')
+
 
   return (
     <div className="links-main">

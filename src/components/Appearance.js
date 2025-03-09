@@ -5,32 +5,55 @@ import { useLocation } from 'react-router-dom';
 function Appearance() {
   const location = useLocation();
   const { state } = location;
+  const [fetchData , setFetchData] = useState('')
   const initialUsername = state?.username || 'Username';
   const initialBio = state?.bio || ''; // Default to empty string if not passed
   const initialProfilePhoto = state?.profilePhoto || null; // Fetch profile photo from state
-  const initialLinks = state?.links || []; // Fetch links from state
-  const initialShops = state?.shops || []; // Fetch shops from state
+  // const initialLinks = fetchData?.links || []; // Fetch links from state
+  // const initialShops = fetchData?.shops || []; // Fetch shops from state
 
-  const [layout, setLayout] = useState('Stack'); // Default layout
-  const [buttonStyle, setButtonStyle] = useState('Fill'); // Default button style
-  const [font, setFont] = useState('DM Sans'); // Default font
-  const [theme, setTheme] = useState('Air Snow'); // Default theme
-  const [links, setLinks] = useState(initialLinks); // Use links from state
-  const [shops, setShops] = useState(initialShops); // Use shops from state
+  const [layout, setLayout] = useState(''); // Default layout
+  const [buttonStyle, setButtonStyle] = useState(''); // Default button style
+  const [font, setFont] = useState(''); // Default font
+  const [theme, setTheme] = useState(''); // Default theme
+  // const [links, setLinks] = useState(fetchData.links || []); // Use links from state  
+  // const [shops, setShops] = useState(fetchData.shops || []) // Use shops from state
   const [profilePhoto, setProfilePhoto] = useState(initialProfilePhoto); // Use profile photo from state
   const [bio, setBio] = useState(initialBio); // Use bio from state
 
+  let userInfomation = JSON.parse(localStorage.getItem('userInformation'));
+  let token = localStorage.getItem('token');
+
+
+  useEffect(()=>{
+    const fetchData = async () => {
+      const response = await fetch('http://localhost:5000/api/me',{
+   method: 'GET',
+   headers: {
+     'Content-Type': 'application/json',
+     'Authorization': token
+   }
+      }
+        
+  
+      );
+      const data = await response.json();
+      setFetchData(data);
+      
+    };
+    fetchData();
+  
+  },[])
+  
+
   // If no state is passed, use mock data (you’d fetch or pass real data from Links)
-  useEffect(() => {
-    if (!initialLinks.length && !initialShops.length) {
-      // Mock data if no state is provided (simulate Links screen data)
-      setLinks([
-        { title: 'Latest YouTube Video', url: 'https://www.youtube.com', enabled: true },
-        { title: 'Latest Instagram Reel', url: 'https://www.instagram.com', enabled: true },
-      ]);
-      setShops([]);
-    }
-  }, [initialLinks, initialShops]);
+  // useEffect(() => {
+  //   if (!fetchData?.links?.length   && !fetchData?.shops?.length ) {
+  //     // Mock data if no state is provided (simulate Links screen data)
+  //     setLinks(fetchData.links);
+  //     setShops(fetchData.shops);
+  //   }
+  // }, [fetchData.links, fetchData.shops]);
 
   const handleLayoutChange = (e) => {
     setLayout(e.target.value);
@@ -61,6 +84,56 @@ function Appearance() {
     return themeColors[theme] || '#f0f8ff'; // Default to Air Snow if theme not found
   };
 
+  const handleSave = () => {
+    if(layout !== '' && buttonStyle !== '' && font !== '' && theme !== ''){
+      const payload = {
+        bannerColor: '#1d293b',
+        appearanceSettings: {
+          layout: layout,
+          buttonStyle: buttonStyle,
+          font: font,
+          theme: theme
+        }
+      }
+      updateAppearance(payload);
+
+  }
+}
+
+
+useEffect(()=>{
+  setLayout(fetchData?.appearanceSettings?.layout );  
+  setButtonStyle(fetchData?.appearanceSettings?.buttonStyle );
+  setFont(fetchData?.appearanceSettings?.font );
+  setTheme(fetchData?.appearanceSettings?.theme );
+},[fetchData])
+
+
+const updateAppearance = async (payload) => {
+    try {
+      const response = await fetch('http://localhost:5000/api/profile/appearance', {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': token
+        },
+        body: JSON.stringify(payload),
+      })
+      const data = await response.json();
+      alert('Appearance updated successfully!');
+      fetchData();
+      console.log(data);
+    } catch (error) {
+      console.error('Error:', error);
+    }
+  }
+
+
+
+  
+
+
+// console.log(links,'links')
   return (
     <div className="appearance-main">
       <div className="appearance-form-content">
@@ -164,32 +237,35 @@ function Appearance() {
             <option value="Mineral Orange">Mineral Orange</option>
           </select>
         </div>
-        <button onClick={() => alert('Appearance saved successfully!')} className="save-button">
+        <button onClick={() => {handleSave()}} className="save-button">
           Save
         </button>
       </div>
       <div className="preview-mobile">
-        <div className={`mobile-screen ${theme.toLowerCase().replace(' ', '-')}`} style={{ backgroundColor: getThemeBackgroundColor() }}>
+        <div className={`mobile-screen ${theme?.toLowerCase()?.replace(' ', '-')}`} style={{ backgroundColor: getThemeBackgroundColor() }}>
           <div className="mobile-header">
             <button>↑</button>
-            <img src={profilePhoto || 'https://via.placeholder.com/50'} alt="Profile" className="mobile-profile" />
-            <p style={{ fontFamily: font }}>@{initialUsername}</p>
+            <img src={fetchData.profilePhoto || 'https://via.placeholder.com/50'} alt="Profile" className="mobile-profile" />
+            <p style={{ fontFamily: font }}>@{fetchData.username}</p>
           </div>
-          <div className={`mobile-links ${layout.toLowerCase()}`} style={{ fontFamily: font }}>
-            <button className={`mobile-link ${buttonStyle.toLowerCase().replace(' ', '-')}`}>Link</button>
-            <button className={`mobile-shop ${buttonStyle.toLowerCase().replace(' ', '-')}`}>Shop</button>
-            {links.filter(link => link.enabled).map((link, index) => (
-              <button key={index} className={`mobile-link-item ${buttonStyle.toLowerCase().replace(' ', '-')}`} style={{ fontFamily: font }}>
-                {link.title}
+          <div className={`mobile-links ${layout?.toLowerCase()}`} style={{ fontFamily: font }}>
+            <button className={`mobile-link ${buttonStyle?.toLowerCase()?.replace(' ', '-')}`}>Link</button>
+            <button className={`mobile-shop ${buttonStyle?.toLowerCase()?.replace(' ', '-')}`}>Shop</button>
+            {
+              fetchData?.links?.filter(link => link?.enabled)?.map((link, index) => (
+                <button key={index} className={`mobile-link-item ${buttonStyle?.toLowerCase()?.replace(' ', '-')}`} style={{ fontFamily: font }}>
+                  {link?.title}
+                </button>
+              ))
+            }
+          
+            {fetchData?.shops?.filter(shop => shop?.enabled)?.map((shop, index) => (
+              <button key={index + fetchData?.shops?.length} className={`mobile-link-item ${buttonStyle?.toLowerCase()?.replace(' ', '-')}`} style={{ fontFamily: font }}>
+                {shop?.title}
               </button>
             ))}
-            {shops.filter(shop => shop.enabled).map((shop, index) => (
-              <button key={index + links.length} className={`mobile-link-item ${buttonStyle.toLowerCase().replace(' ', '-')}`} style={{ fontFamily: font }}>
-                {shop.title}
-              </button>
-            ))}
-            <div className="mobile-bio" style={{ fontFamily: font }}>{bio || 'Bio'}</div>
-            <button className={`mobile-connect ${buttonStyle.toLowerCase().replace(' ', '-')}`} style={{ fontFamily: font }}>
+            <div className="mobile-bio" style={{ fontFamily: font }}>{fetchData.bio || 'Bio'}</div>
+            <button className={`mobile-connect ${buttonStyle?.toLowerCase()?.replace(' ', '-')}`} style={{ fontFamily: font }}>
               Get Connected
             </button>
           </div>
